@@ -38,10 +38,6 @@ const syncDatabase = async() => {
 }
 
 Reflect.defineProperty(server_cache, "getServer", {
-    /**
-     * @param {number} id Guild ID
-     * @returns {Model} new User
-     */
     value: async function(id) {
         var guild = server_cache.get(id);
         if (!guild) guild = await Server.findOne({ where: { guild_id: id } });
@@ -54,9 +50,6 @@ Reflect.defineProperty(server_cache, "getServer", {
 });
 
 Reflect.defineProperty(server_cache, "getChannels", {
-    /**
-     * @returns {Model} new User
-     */
     value: async function() {
         channels = await Server.findAll({});
         return channels;
@@ -117,7 +110,7 @@ client.on("message", async message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift();
 
-    if (command == "help") message.channel.send(createEmbed(message, "**!add #channel**\n Um den Globnal Channel zu setzen\n\n **!remove**\n Um ihn zu entfernen."))
+    if (command == "help") message.channel.send(createEmbed(message, "**!add #channel**\n Um den Global Channel zu setzen\n\n **!remove**\n Um ihn zu entfernen."))
     if (command == "add") {
         let channel = message.mentions.channels.first()
         if (!channel) return message.channel.send("Bitte gebe einen Channel an")
